@@ -1,6 +1,23 @@
 # GT UNLIMITED — Financial Terminal
 
+English | [中文](docs/README.zh-CN.md)
+
 A self-hosted, single-page financial monitoring terminal inspired by Bloomberg / TradingView. Built with vanilla HTML/CSS/JS and designed for traders who want a centralized dashboard for global markets, derivatives, risk, macro events and news.
+
+GT UNLIMITED is open source and welcomes contributors in every language. Multilingual documentation lives in [`docs/`](docs/).
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Data Sources](#data-sources)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [License](#license)
 
 ## Features
 
@@ -39,7 +56,7 @@ caddy run
 
 If you don't have Caddy, you can also open `web/index.html` directly from any static server; just make sure `/api/proxy` is reachable for external data sources.
 
-## Optional Login
+## Configuration
 
 By default the terminal boots without authentication. To enable a simple login screen:
 
@@ -61,22 +78,44 @@ Then add this line in `web/index.html` **before** `/assets/app.js`:
 ```
 trading.2009731.xyz/
 ├── api/                  # Node.js CORS proxy
-├── web/
+├── web/                  # Frontend static files
 │   ├── index.html        # Main entry
-│   ├── assets/
-│   │   ├── app.js        # Core app, widget registry, workspaces
-│   │   ├── styles.css    # Theme & layout
-│   │   └── widgets/      # Individual widget modules
+│   ├── assets/           # Styles, widget scripts, images, fonts
 │   └── config.example.js # Optional auth template
-├── Caddyfile
-├── README.md
-└── LICENSE
+├── scripts/              # Helper scripts
+├── docs/                 # Multilingual documentation
+├── Caddyfile             # Caddy configuration
+├── LICENSE               # MIT license
+└── README.md             # English main documentation
 ```
 
 ## Data Sources
 
 All data comes from free public APIs and RSS feeds (Yahoo Finance, Binance, Frankfurter, GDACS, BBC, Reuters, FRED, etc.). External requests are proxied through `/api/proxy` to avoid browser CORS issues.
 
+## Roadmap
+
+- 3D volatility surface visualization
+- Interest-rate / credit / commodity swap calculators
+- Structured product pricing engine
+- Standardized financial statement teardown (20+ years)
+- Sell-side research aggregation and full-text search
+- Portfolio attribution and risk models
+- Excel / Google Sheets add-on for financial modeling
+- Full feature parity between 2D map and 3D globe
+- News TTS broadcast dashboard
+- Stable audio player
+
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for design details.
+
+## Contributing
+
+We welcome contributors from all languages and backgrounds. Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) before opening a Pull Request.
+
+## Code of Conduct
+
+This project follows the [Contributor Covenant Code of Conduct](docs/CODE_OF_CONDUCT.md).
+
 ## License
 
-MIT License — see [LICENSE](./LICENSE).
+MIT License — see [LICENSE](./LICENSE). Copyright (c) 2026 Kitaro-Loked.
