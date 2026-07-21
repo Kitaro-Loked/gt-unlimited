@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Runtime / local config
+.env
+.env.local
+web/config.js
+
+# Backups & generated archives
+*.bak
+*.bak-*
+web-backup-*.tar.gz
+*.log
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Cache
+.cache/
+*.tmp

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="GT UNLIMITED - 专业金融监控终端">
+  <meta name="theme-color" content="#100E0B">
+  <title>GT UNLIMITED | 金融监控终端</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://s3.tradingview.com">
+  <link rel="preconnect" href="https://www.tradingview.com">
+  <link rel="preconnect" href="https://www.jin10.com">
+
+  <link rel="preconnect" href="https://api.binance.com">
+  <link rel="dns-prefetch" href="https://api.binance.com">
+  <link rel="preconnect" href="https://fapi.binance.com">
+  <link rel="dns-prefetch" href="https://fapi.binance.com">
+  <link rel="preconnect" href="https://api.gold-api.com">
+  <link rel="dns-prefetch" href="https://api.gold-api.com">
+  <link rel="preconnect" href="https://api.frankfurter.dev">
+  <link rel="dns-prefetch" href="https://api.frankfurter.dev">
+  <link rel="preconnect" href="https://api.coingecko.com">
+  <link rel="dns-prefetch" href="https://api.coingecko.com">
+  <link rel="preconnect" href="https://api.alternative.me">
+  <link rel="dns-prefetch" href="https://api.alternative.me">
+  <link rel="dns-prefetch" href="https://stream.binance.com">
+  <link rel="dns-prefetch" href="https://fstream.binance.com">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack.min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="dark-mode">
+  <!-- Ambient Texture -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Ticker -->
+  <header class="ticker-header" id="ticker-box" aria-label="市场行情滚动条"></header>
+
+  <!-- Floating Top Bar -->
+  <div class="top-bar-shell">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <span class="terminal-id">
+          <span class="terminal-pulse"></span>
+          GT UNLIMITED
+        </span>
+        <div class="theme-shell">
+          <button type="button" id="theme-icon" class="mode-toggle" aria-label="切换主题" aria-haspopup="true" aria-expanded="false">
+            <span class="mode-icon">◐</span>
+            <span class="mode-label">DARK MODE</span>
+          </button>
+          <nav class="theme-menu" id="theme-menu" aria-hidden="true">
+            <div class="theme-menu-header">THEME</div>
+            <div class="theme-menu-list" id="theme-menu-list"></div>
+          </nav>
+        </div>
+      </div>
+      <div id="clocks" class="clocks" aria-label="世界时钟"></div>
+      <div class="system-hud" id="system-hud" aria-label="系统状态">
+        <span class="hud-status" id="hud-status" title="连接状态">
+          <span class="hud-dot"></span>
+          <span class="hud-label">SYSTEM</span>
+        </span>
+        <span class="hud-latency" id="hud-latency" title="网络延迟">--ms</span>
+        <span class="hud-flow" id="hud-flow" title="数据流活跃度">
+          <span class="hud-flow-bar"></span>
+          <span class="hud-flow-bar"></span>
+          <span class="hud-flow-bar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Workspace -->
+  <main class="grid-container">
+    <div class="grid-stack" role="region" aria-label="监控组件"></div>
+  </main>
+
+  <!-- Floating Widget Menu — unified launcher for widgets / workspaces / commands -->
+  <button type="button" class="widget-menu-toggle" id="widget-menu-toggle" aria-label="添加组件 / 看板 / 命令" title="添加组件 / 看板 / 命令">
+    <span class="widget-menu-icon"></span>
+  </button>
+  <nav class="widget-menu" id="widget-menu" aria-hidden="true">
+    <div class="widget-menu-header">
+      <div class="widget-menu-title">ADD WIDGET</div>
+      <div class="widget-menu-tabs" role="tablist" aria-label="菜单标签">
+        <button type="button" class="widget-menu-tab active" data-tab="widgets" role="tab" aria-selected="true">组件</button>
+        <button type="button" class="widget-menu-tab" data-tab="workspaces" role="tab" aria-selected="false">看板</button>
+        <button type="button" class="widget-menu-tab" data-tab="commands" role="tab" aria-selected="false">命令</button>
+      </div>
+    </div>
+    <div class="widget-menu-search">
+      <input type="text" id="widget-menu-search" placeholder="搜索组件 / 看板 / 命令..." autocomplete="off" aria-label="搜索">
+    </div>
+    <div class="widget-menu-body" id="widget-menu-body"></div>
+  </nav>
+
+  <!-- Workspace Toggle (floating, minimal when collapsed) -->
+  <button type="button" class="workspace-toggle" id="workspace-toggle" aria-label="展开/收起看板" title="工作区看板 (Shift+W)">
+    <span class="workspace-toggle-icon">▶</span>
+  </button>
+
+  <!-- Workspace Sidebar -->
+  <aside class="workspace-sidebar" id="workspace-sidebar" aria-label="工作区看板">
+    <div class="workspace-sidebar-inner">
+      <div class="workspace-sidebar-header">
+        <span>WORKSPACE</span>
+        <span class="workspace-sidebar-sub">一键看板</span>
+      </div>
+      <div class="workspace-sidebar-list" id="workspace-sidebar-list"></div>
+    </div>
+  </aside>
+
+  <!-- Command Palette -->
+  <div class="command-palette" id="command-palette" aria-hidden="true">
+    <div class="command-palette-box">
+      <input type="text" id="command-input" placeholder="输入命令..." autocomplete="off">
+      <div class="command-list" id="command-list"></div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack-all.js"></script>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script src="/assets/widgets/commodities.js"></script>
+  <script src="/assets/widgets/funding.js"></script>
+  <script src="/assets/widgets/fxrates.js"></script>
+  <script src="/assets/widgets/gcrypto.js"></script>
+  <script src="/assets/widgets/ticker.js"></script>
+  <script src="/assets/widgets/alerts.js"></script>
+  <script src="/assets/widgets/liquidations.js"></script>
+  <script src="/assets/widgets/myliquidations.js"></script>
+  <script src="/assets/widgets/marketliqs.js"></script>
+  <script src="/assets/widgets/ashareheat.js"></script>
+  <script src="/assets/widgets/asharelimit.js"></script>
+  <script src="/assets/widgets/ashareboard.js"></script>
+  <script src="/assets/widgets/ashareflow.js"></script>
+  <script src="/assets/widgets/asharemood.js"></script>
+  <script src="/assets/widgets/asharehot.js"></script>
+  <script src="/assets/widgets/cryptotop.js"></script>
+  <script src="/assets/widgets/cryptooi.js"></script>
+  <script src="/assets/widgets/globalidx.js"></script>
+  <script src="/assets/widgets/hkboard.js"></script>
+  <script src="/assets/widgets/usboard.js"></script>
+  <script src="/assets/widgets/indicators.js"></script>
+  <script src="/assets/widgets/fxboard.js"></script>
+  <script src="/assets/widgets/fxstrength.js"></script>
+  <script src="/assets/widgets/correlation.js"></script>
+  <script src="/assets/widgets/calculators.js"></script>
+  <script src="/assets/widgets/compound.js"></script>
+  <script src="/assets/widgets/checklist.js"></script>
+  <script src="/assets/widgets/notes.js"></script>
+  <script src="/assets/widgets/autopivot.js"></script>
+  <script src="/assets/widgets/sentiment.js"></script>
+  <script src="/assets/widgets/watchlist.js"></script>
+  <script src="/assets/widgets/asharesector.js"></script>
+  <script src="/assets/widgets/ashareladder.js"></script>
+  <script src="/assets/widgets/asharequote.js"></script>
+  <script src="/assets/widgets/asharecapital.js"></script>
+  <script src="/assets/widgets/asharefut.js"></script>
+  <script src="/assets/widgets/asharecb.js"></script>
+  <script src="/assets/widgets/cryptols.js"></script>
+  <script src="/assets/widgets/cryptobasis.js"></script>
+  <script src="/assets/widgets/cryptodvol.js"></script>
+  <script src="/assets/widgets/cryptonew.js"></script>
+  <script src="/assets/widgets/cryptovol.js"></script>
+  <script src="/assets/widgets/globalbond.js"></script>
+  <script src="/assets/widgets/ushot.js"></script>
+  <script src="/assets/widgets/euboard.js"></script>
+  <script src="/assets/widgets/globalfut.js"></script>
+  <script src="/assets/widgets/optionchain.js"></script>
+  <script src="/assets/widgets/cryptooptflow.js"></script>
+  <script src="/assets/widgets/optionlab.js"></script>
+  <script src="/assets/widgets/hotrank.js"></script>
+  <script src="/assets/widgets/twboard.js"></script>
+  <script src="/assets/widgets/asiahot.js"></script>
+  <script src="/assets/widgets/emhot.js"></script>
+  <script src="/assets/widgets/hkflow.js"></script>
+  <script src="/assets/widgets/tradecalc.js"></script>
+  <script src="/assets/widgets/holidays.js"></script>
+  <script src="/assets/widgets/econdata.js"></script>
+  <script src="/assets/widgets/dividend.js"></script>
+  <script src="/assets/widgets/ipoashare.js"></script>
+  <script src="/assets/widgets/ipohk.js"></script>
+  <script src="/assets/widgets/ipous.js"></script>
+  <script src="/assets/widgets/ipostats.js"></script>
+  <script src="/assets/widgets/worldheat.js"></script>
+  <script src="/assets/widgets/globe.js"></script>
+  <script src="/assets/widgets/polymarket.js"></script>
+  <!-- v13 新增：日/印/英/德/巴行情板 + 市场情绪 + 产业链关联 -->
+  <script src="/assets/widgets/jpboard.js"></script>
+  <script src="/assets/widgets/inboard.js"></script>
+  <script src="/assets/widgets/ukboard.js"></script>
+  <script src="/assets/widgets/deboard.js"></script>
+  <script src="/assets/widgets/brboard.js"></script>
+  <script src="/assets/widgets/marketsentiment.js"></script>
+  <script src="/assets/widgets/supplychain.js"></script>
+  <!-- v14 新增：中东 / 非洲 / 拉美 / 东盟 / 大洋洲 / 韩国行情板 -->
+  <script src="/assets/widgets/mideastboard.js"></script>
+  <script src="/assets/widgets/africaboard.js"></script>
+  <script src="/assets/widgets/latamboard.js"></script>
+  <script src="/assets/widgets/aseanboard.js"></script>
+  <script src="/assets/widgets/oceaniaboard.js"></script>
+  <script src="/assets/widgets/koreaboard.js"></script>
+  <script src="/assets/widgets/riskmon.js"></script>
+  <script src="/assets/widgets/fxmatrix.js"></script>
+  <script src="/assets/widgets/earnings.js"></script>
+  <script src="/assets/widgets/fedmeetings.js"></script>
+  <script src="/assets/widgets/northbound.js"></script>
+  <script src="/assets/widgets/commoditywatch.js"></script>
+  <script src="/assets/widgets/basemetalspro.js"></script>
+  <script src="/assets/widgets/energypro.js"></script>
+  <script src="/assets/widgets/agripro.js"></script>
+  <!-- v15 新增：金融分析套件 / 高级期权曲面 / 音乐播放器 / 新闻播报 -->
+  <script src="/assets/widgets/financialsuite.js"></script>
+  <script src="/assets/widgets/optsurfacepro.js"></script>
+  <script src="/assets/widgets/musicplayer.js"></script>
+  <script src="/assets/widgets/newscast.js"></script>
+  <script src="/assets/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

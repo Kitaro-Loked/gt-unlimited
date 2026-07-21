@@ -1,0 +1,30 @@
+# GT UNLIMITED — Caddy configuration
+# Place this Caddyfile in /root/trading.2009731.xyz and run `caddy run`.
+# It serves the static web/ folder and proxies /api/* to the local Node proxy.
+
+trading.2009731.xyz {
+	root * /root/trading.2009731.xyz/web
+	file_server
+
+	# Reverse proxy for widget APIs (Polymarket, GDACS, news RSS, etc.)
+	# Start the proxy with: node /root/trading.2009731.xyz/api/proxy-server.js
+	route /api/* {
+		reverse_proxy localhost:3456
+	}
+
+	encode gzip
+	header {
+		# Optional: strong cache for static assets
+		Cache-Control "public, max-age=3600"
+	}
+}
+
+# Local development
+:3457 {
+	root * /root/trading.2009731.xyz/web
+	file_server
+	route /api/* {
+		reverse_proxy localhost:3456
+	}
+	encode gzip
+}
