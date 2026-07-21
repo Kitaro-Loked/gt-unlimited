@@ -1,13 +1,16 @@
 # GT UNLIMITED — Financial Terminal
 
-English | [中文](docs/README.zh-CN.md)
+English (Mirror) | [中文](https://github.com/Kitaro-Loked/gt-unlimited-cn)
+
+> **Note**: This is the **English mirror repository**. The primary Chinese repository is at **[gt-unlimited-cn](https://github.com/Kitaro-Loked/gt-unlimited-cn)**. All active development and the latest documentation are maintained in the Chinese repository.
 
 A self-hosted, single-page financial monitoring terminal inspired by Bloomberg / TradingView. Built with vanilla HTML/CSS/JS and designed for traders who want a centralized dashboard for global markets, derivatives, risk, macro events and news.
 
-GT UNLIMITED is open source and welcomes contributors in every language. Multilingual documentation lives in [`docs/`](docs/).
+- **Official instance**: https://trading.2009731.xyz
+- **Primary repository (Chinese)**: https://github.com/Kitaro-Loked/gt-unlimited-cn ⭐
+- **This repository (English mirror)**: https://github.com/Kitaro-Loked/gt-unlimited
 
-- **Official instance / 官方实例**: https://trading.2009731.xyz
-- **Repository / 仓库**: https://github.com/Kitaro-Loked/gt-unlimited
+---
 
 ## Table of Contents
 
@@ -89,23 +92,6 @@ node api/proxy-server.js &
 # open http://localhost:3456
 ```
 
-## Configuration
-
-By default the terminal boots without authentication. To enable a simple login screen:
-
-```bash
-cp web/config.example.js web/config.js
-# edit web/config.js with your own username/password
-```
-
-Then add this line in `web/index.html` **before** `/assets/app.js`:
-
-```html
-<script src="/config.js"></script>
-```
-
-`web/config.js` is ignored by Git so your credentials never get committed.
-
 ## Project Structure
 
 ```
@@ -122,6 +108,23 @@ gt-unlimited/
 ├── LICENSE                    # MIT license
 └── README.md                  # English main documentation
 ```
+
+## Configuration
+
+By default the terminal boots without authentication. To enable a simple login screen:
+
+```bash
+cp web/config.example.js web/config.js
+# edit web/config.js with your own username/password
+```
+
+Then add this line in `web/index.html` **before** `/assets/app.js`:
+
+```html
+<script src="/config.js"></script>
+```
+
+`web/config.js` is ignored by Git so your credentials never get committed.
 
 ## Data Sources
 
@@ -145,6 +148,8 @@ See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for design details.
 ## Contributing
 
 We welcome contributors from all languages and backgrounds. Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) before opening a Pull Request.
+
+> **Note**: For the most up-to-date contributing guidelines and active development, please visit the [primary Chinese repository](https://github.com/Kitaro-Loked/gt-unlimited-cn).
 
 ## Code of Conduct
 
