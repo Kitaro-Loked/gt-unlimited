@@ -4,7 +4,7 @@
  *   字段：f12=代码 f13=市场(105纳斯达克/106纽交所/107美交所) f14=名称 f2=现价 f3=涨跌幅%
  *   f26=上市日期(YYYYMMDD) f100=行业；pz 上限 100，按 fid=f26 倒序即最新上市在前
  *
- * 接口实测结论（2026-07-16，curl + Origin: https://trading.2009731.xyz 复测）：
+ * 接口实测结论（2026-07-16，curl + Origin: https://example.com 复测）：
  *   ① 东财 datacenter-web 美股 IPO 报表：RPT_USIPO_LIST / RPT_US_IPO_LIST / RPT_USIPO_CALENDAR /
  *      RPTA_US_IPO / RPTA_USIPO / RPT_US_IPOAPPLY / RPT_USIPO_INFO / RPT_US_STOCK_IPO /
  *      RPT_US_IPO / RPT_USIPO / RPT_HK_IPO_LIST 等 20+ 候选 reportName 全部返回 code 9501（报表不存在），

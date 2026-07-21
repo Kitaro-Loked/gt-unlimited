@@ -22,7 +22,6 @@ const url = require('url');
 
 const PORT = process.env.PORT || 3456;
 const WEB_ROOT = path.resolve(__dirname, '../web');
-const ALLOWED_ORIGINS = ['http://localhost', 'http://localhost:3456', 'https://trading.2009731.xyz'];
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

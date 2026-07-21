@@ -1,0 +1,35 @@
+# GT UNLIMITED — Caddy configuration template
+#
+# 1. Copy this file to Caddyfile:
+#    cp Caddyfile.example Caddyfile
+# 2. Replace "example.com" with your own domain,
+#    or comment out the domain block and uncomment the :8080 block for IP-only access.
+# 3. Make sure your DNS A record points to this server if you use a domain.
+# 4. Caddy will automatically request and renew HTTPS certificates for public domains.
+
+# ---- 方式 A：绑定域名（自动 HTTPS） ----
+example.com {
+	root * ./web
+	file_server
+
+	# 将 /api/* 转发给本地 Node CORS 代理
+	route /api/* {
+		reverse_proxy localhost:3456
+	}
+
+	encode gzip
+	header {
+		Cache-Control "public, max-age=3600"
+	}
+}
+
+# ---- 方式 B：IP + 端口（纯 HTTP） ----
+# 如果不用域名，注释掉上面的 example.com 块，并取消下面注释：
+# :8080 {
+# 	root * ./web
+# 	file_server
+# 	route /api/* {
+# 		reverse_proxy localhost:3456
+# 	}
+# 	encode gzip
+# }

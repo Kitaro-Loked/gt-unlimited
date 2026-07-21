@@ -1,6 +1,6 @@
 /* A股新股表现与破发监测（近90天）— 东财 datacenter IPO 报表 + 腾讯/东财现价兜底
  * ① 新股清单: https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPTA_APP_IPOAPPLY
- *    实测 2026-07-16（curl，带 Origin: https://trading.2009731.xyz）：
+ *    实测 2026-07-16（curl，带 Origin: https://example.com）：
  *    HTTP 200，响应头 Access-Control-Allow-Origin: *，浏览器跨域 fetch 可用。
  *    排序列 LISTING_DATE 可用（asharecb 注：PUBLIC_START_DATE 会报 9501；本报表 LISTING_DATE 正常）。
  *    filter=(LISTING_DATE>='YYYY-MM-DD')(LISTING_DATE<='YYYY-MM-DD') 可用（需 URL 编码），

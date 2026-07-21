@@ -1,5 +1,5 @@
 /* 经济数据日历 — 中美欧重要经济数据：最新值/前值/数据期/下次发布
- * 接口（均已 curl 实测 2026-07-16，带 Origin: https://trading.2009731.xyz 时响应
+ * 接口（均已 curl 实测 2026-07-16，带 Origin: https://example.com 时响应
  * Access-Control-Allow-Origin: *，浏览器跨域 fetch 可用）：
  * ① 中国：datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_ECONOMY_*
  *    RPT_ECONOMY_CPI            字段: TIME=数据期 NATIONAL_SAME=全国CPI同比%

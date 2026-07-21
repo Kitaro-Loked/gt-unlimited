@@ -4,6 +4,9 @@
 
 Un terminal financiero autoalojado de una sola página inspirado en Bloomberg / TradingView. Construido con HTML/CSS/JS vanilla para traders que quieren un panel centralizado de mercados globales, derivados, riesgo, eventos macro y noticias.
 
+- **Instancia oficial**: https://trading.2009731.xyz
+- **Repositorio**: https://github.com/Kitaro-Loked/gt-unlimited
+
 ## Características principales
 
 - Datos de mercado multiactivo: acciones, cripto, FX, commodities, tasas, ETFs
@@ -16,7 +19,7 @@ Un terminal financiero autoalojado de una sola página inspirado en Bloomberg / 
 ## Inicio rápido
 
 ```bash
-cd trading.2009731.xyz
+cd gt-unlimited
 node api/proxy-server.js &
 caddy run
 ```

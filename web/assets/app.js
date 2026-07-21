@@ -1,6 +1,6 @@
 /**
  * GT UNLIMITED - Financial Terminal
- * Optimized single-page dashboard for trading.2009731.xyz
+ * Optimized single-page dashboard for example.com
  */
 
 (function () {

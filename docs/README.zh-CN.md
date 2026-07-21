@@ -4,6 +4,9 @@
 
 一个自托管、单页的金融监控终端，灵感来自 Bloomberg / TradingView。使用原生 HTML/CSS/JS 构建，面向希望拥有集中式全球行情、衍生品、风险、宏观事件与新闻看板的交易者。
 
+- **官方实例**: https://trading.2009731.xyz
+- **开源仓库**: https://github.com/Kitaro-Loked/gt-unlimited
+
 ## 目录
 
 - [功能特性](#功能特性)
@@ -70,35 +73,66 @@
 
 ## 快速开始
 
+GT UNLIMITED 可以在任意服务器部署。以下提供三种方式。
+
+### A. IP + 端口（最快，纯 HTTP）
+
+无需域名或 Caddy，Node 代理本身就提供静态前端服务。
+
 ```bash
-cd trading.2009731.xyz
-
-# 1. 启动 CORS 代理
-node api/proxy-server.js &
-
-# 2. 启动 Caddy（静态文件 + /api/* 反向代理）
-caddy run
-
-# 3. 打开 http://localhost（或你配置的域名）
+cd gt-unlimited
+node api/proxy-server.js
 ```
 
-如果没有 Caddy，也可以直接通过任意静态服务器打开 `web/index.html`；只需确保 `/api/proxy` 可被外部数据源访问。
+然后访问 `http://<你的服务器IP>:3456`。
+
+默认监听 `0.0.0.0:3456`。可通过 `PORT=8080 node api/proxy-server.js` 修改端口。
+
+### B. 绑定域名并自动申请 HTTPS（Caddy）
+
+```bash
+cd gt-unlimited
+
+# 1. 复制模板并填写你的域名
+cp Caddyfile.example Caddyfile
+# 编辑 Caddyfile：把 example.com 换成你的域名
+
+# 2. 启动 CORS 代理
+node api/proxy-server.js &
+
+# 3. 启动 Caddy
+caddy run
+```
+
+自动 HTTPS 要求：
+- DNS A 记录指向服务器 IP；
+- 服务器 80 / 443 端口对外开放；
+- Caddy 会自动向 Let's Encrypt 申请并续期证书。
+
+### C. 本地开发
+
+```bash
+cd gt-unlimited
+node api/proxy-server.js &
+# 打开 http://localhost:3456
+```
 
 ## 项目结构
 
 ```
-trading.2009731.xyz/
-├── api/                  # Node.js CORS 代理服务
-├── web/                  # 前端静态文件
-│   ├── assets/           # 图片、字体、全局样式
-│   ├── index.html        # 单页入口
-│   ├── config.example.js # 登录配置模板
-│   └── sw.js             # Service Worker
-├── scripts/              # 辅助脚本
-├── docs/                 # 多语言文档
-├── Caddyfile             # Caddy 配置
-├── LICENSE               # MIT 许可证
-└── README.md             # 英文主文档
+gt-unlimited/
+├── api/                       # Node.js CORS 代理服务
+├── web/                       # 前端静态文件
+│   ├── assets/                # 图片、字体、全局样式
+│   ├── index.html             # 单页入口
+│   ├── config.example.js      # 登录配置模板
+│   └── sw.js                  # Service Worker
+├── scripts/                   # 辅助脚本
+├── docs/                      # 多语言文档
+├── Caddyfile.example          # Caddy 配置模板
+├── .gitignore                 # Caddyfile 与本地配置被忽略
+├── LICENSE                    # MIT 许可证
+└── README.md                  # 英文主文档
 ```
 
 ## 配置

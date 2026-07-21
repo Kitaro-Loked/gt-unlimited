@@ -5,7 +5,7 @@
 ## 快速启动
 
 ```bash
-cd /root/trading.2009731.xyz
+cd gt-unlimited
 node api/proxy-server.js
 ```
 
@@ -13,15 +13,18 @@ node api/proxy-server.js
 
 ## 配合 Caddy 使用
 
-项目根目录已提供 `Caddyfile`，会代理 `/api/*` 到本服务：
+项目根目录提供 `Caddyfile.example` 模板，复制为 `Caddyfile` 后代理 `/api/*` 到本服务：
 
 ```bash
-# 1. 启动代理
-cd /root/trading.2009731.xyz
+# 1. 复制模板并设置域名
+cd gt-unlimited
+cp Caddyfile.example Caddyfile
+# 编辑 Caddyfile：将 example.com 替换为你的域名
+
+# 2. 启动代理
 node api/proxy-server.js &
 
-# 2. 启动 Caddy
-cd /root/trading.2009731.xyz
+# 3. 启动 Caddy
 caddy run
 ```
 

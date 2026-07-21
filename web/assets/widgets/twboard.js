@@ -7,7 +7,7 @@
  *              响应头 access-control-allow-origin 反射 Origin，实测可跨域（2026-07-16）。
  *        响应: {"totalCount":N,"data":[{"s":"TWSE:2330","d":[close,change%,change_abs,volume(股)]}]}
  *        指数代码: TWSE:IX0001 = 台湾加权指数(TAIEX)，volume 恒为 null。
- * 实测记录（2026-07-16，均 curl -H "Origin: https://trading.2009731.xyz" 验证）:
+ * 实测记录（2026-07-16，均 curl -H "Origin: https://example.com" 验证）:
  *   - POST /taiwan/scan 批量 16 标的: HTTP 200 + ACAO 反射 Origin + 数据完整（一次拉全，采用）
  *   - GET /symbol?symbol=TWSE:2330 单标的可用（HTTP 200 + ACAO），但不支持逗号分隔多标的
  *     （多标的返回 {"code":"symbol_not_exists"}），故弃用逐只 GET 方案

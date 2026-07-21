@@ -2,7 +2,7 @@
 # Add cn (Chinese label) to WIDGETS entries in app.js where missing.
 import re, pathlib
 
-ROOT = pathlib.Path('/root/trading.2009731.xyz/web/assets')
+ROOT = pathlib.Path(__file__).resolve().parent.parent / 'web/assets'
 APP = ROOT / 'app.js'
 
 CN = {

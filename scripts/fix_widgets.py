@@ -2,7 +2,7 @@
 """Fix WIDGETS section formatting and ensure every entry has a cn label."""
 import re, pathlib
 
-APP = pathlib.Path('/root/trading.2009731.xyz/web/assets/app.js')
+APP = pathlib.Path(__file__).resolve().parent.parent / 'web/assets/app.js'
 text = APP.read_text(encoding='utf-8')
 
 CN = {

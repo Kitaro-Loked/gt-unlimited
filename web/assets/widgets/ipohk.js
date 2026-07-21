@@ -1,5 +1,5 @@
 /* 港股打新 — 待上市新股 + 次新股行情（东财 clist 降级口径，见下）
- * 数据源实测记录（2026-07-16，均用 curl 带 Origin: https://trading.2009731.xyz 复测）：
+ * 数据源实测记录（2026-07-16，均用 curl 带 Origin: https://example.com 复测）：
  * ① 东财 datacenter-web 港股 IPO 报表：不可用。穷举 RPT_HKIPO_LIST / RPT_HKIPO_APPLY /
  *    RPT_HK_IPOAPPLY / RPTA_HK_IPOAPPLY / RPT_HKIPO_ISSUE / RPT_HK_IPO_LIST / RPT_IPO_HK /
  *    RPT_HK_IPO / RPT_HKIPOLIST / RPTA_HK_IPO / RPT_HK_NEWIPO / RPT_IPO_HKLIST /

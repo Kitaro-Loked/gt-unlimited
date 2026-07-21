@@ -1,6 +1,6 @@
 /* A股打新工作台 — ①申购日历(按申购日分组,今日高亮) ②待上市 ③新债申购 ④首日涨幅回顾
  * 数据源: 东方财富 datacenter-web（全部 curl 实测 2026-07-16，HTTP 200；
- *   带 Origin: https://trading.2009731.xyz 时响应 Access-Control-Allow-Origin: *，浏览器跨域 fetch 可用）
+ *   带 Origin: https://example.com 时响应 Access-Control-Allow-Origin: *，浏览器跨域 fetch 可用）
  * ①②④ 新股报表: reportName=RPTA_APP_IPOAPPLY（filter 支持 APPLY_DATE/LISTING_DATE 比较；排序列 APPLY_DATE/LISTING_DATE 均有效）
  *   字段: SECUCODE=带市场后缀代码 SECURITY_CODE=证券代码 APPLY_CODE=申购代码(沪732/787开头,与证券代码不同)
  *   SECURITY_NAME=名称 APPLY_DATE=申购日 LISTING_DATE=上市日(未定=null)

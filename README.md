@@ -6,6 +6,9 @@ A self-hosted, single-page financial monitoring terminal inspired by Bloomberg /
 
 GT UNLIMITED is open source and welcomes contributors in every language. Multilingual documentation lives in [`docs/`](docs/).
 
+- **Official instance / 官方实例**: https://trading.2009731.xyz
+- **Repository / 仓库**: https://github.com/Kitaro-Loked/gt-unlimited
+
 ## Table of Contents
 
 - [Features](#features)
@@ -42,19 +45,49 @@ GT UNLIMITED is open source and welcomes contributors in every language. Multili
 
 ## Quick Start
 
+GT UNLIMITED can run on any server. Choose one of the following deployment modes.
+
+### A. IP + port (fastest, plain HTTP)
+
+No domain or Caddy required — the Node proxy also serves the static frontend.
+
 ```bash
-cd trading.2009731.xyz
-
-# 1. Start the CORS proxy
-node api/proxy-server.js &
-
-# 2. Start Caddy (serves static files and proxies /api/* to the Node service)
-caddy run
-
-# 3. Open http://localhost (or your configured domain)
+cd gt-unlimited
+node api/proxy-server.js
 ```
 
-If you don't have Caddy, you can also open `web/index.html` directly from any static server; just make sure `/api/proxy` is reachable for external data sources.
+Then open `http://<your-server-ip>:3456`.
+
+The proxy listens on `0.0.0.0:3456` by default. Change the port with `PORT=8080 node api/proxy-server.js`.
+
+### B. Bind a domain with automatic HTTPS (Caddy)
+
+```bash
+cd gt-unlimited
+
+# 1. Copy the template and set your domain
+cp Caddyfile.example Caddyfile
+# edit Caddyfile: replace example.com with your domain
+
+# 2. Start the CORS proxy
+node api/proxy-server.js &
+
+# 3. Start Caddy
+caddy run
+```
+
+Requirements for automatic HTTPS:
+- Your DNS A record points to the server IP.
+- Ports 80 and 443 are open.
+- Caddy will automatically obtain and renew Let's Encrypt certificates.
+
+### C. Local development
+
+```bash
+cd gt-unlimited
+node api/proxy-server.js &
+# open http://localhost:3456
+```
 
 ## Configuration
 
@@ -76,17 +109,18 @@ Then add this line in `web/index.html` **before** `/assets/app.js`:
 ## Project Structure
 
 ```
-trading.2009731.xyz/
-├── api/                  # Node.js CORS proxy
-├── web/                  # Frontend static files
-│   ├── index.html        # Main entry
-│   ├── assets/           # Styles, widget scripts, images, fonts
-│   └── config.example.js # Optional auth template
-├── scripts/              # Helper scripts
-├── docs/                 # Multilingual documentation
-├── Caddyfile             # Caddy configuration
-├── LICENSE               # MIT license
-└── README.md             # English main documentation
+gt-unlimited/
+├── api/                       # Node.js CORS proxy
+├── web/                       # Frontend static files
+│   ├── index.html             # Main entry
+│   ├── assets/                # Styles, widget scripts, images, fonts
+│   └── config.example.js      # Optional auth template
+├── scripts/                   # Helper scripts
+├── docs/                      # Multilingual documentation
+├── Caddyfile.example          # Caddy configuration template
+├── .gitignore                 # Caddyfile and local config are ignored
+├── LICENSE                    # MIT license
+└── README.md                  # English main documentation
 ```
 
 ## Data Sources

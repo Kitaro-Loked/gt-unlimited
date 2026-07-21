@@ -7,7 +7,7 @@
  * 现货: https://qt.gtimg.cn/q=sh510050,sh510300 （注入 <script charset="gb2312">，全局 v_<code>）
  *   字段下标（v_<code> 值按 ~ 切分，0 基，同 ashareboard.js）：1=名称 3=现价 31=涨跌额 32=涨跌%
  * 当月到期日：上交所 ETF 期权到期日为到期月第 4 个星期三（遇节假日顺延未处理），按北京时间客户端计算。
- * 接口实测结论（2026-07-16，curl 验证，含 Origin: https://trading.2009731.xyz）：
+ * 接口实测结论（2026-07-16，curl 验证，含 Origin: https://example.com）：
  *   - push2delay.eastmoney.com fs=m:10：合约清单完整（748 个，f12/f14 正常，含 ACAO 头），
  *     但延时通道不下发期权行情：f2/f3/f5/f108 全部为 "-"（stock/get 单合约 f43 同样为空，仅 f60 昨收有效）。
  *   - push2.eastmoney.com：本机出口 IP 全部 3 个 CDN 节点均 502（已知按出口 IP 封锁，与其他 A股组件一致），
